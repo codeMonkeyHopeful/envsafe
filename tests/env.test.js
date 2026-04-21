@@ -1,5 +1,5 @@
 import { env } from "../src/env.js"
-import { string, number } from "../src/schema.js"
+import { number, string } from "../src/schema.js"
 
 describe("envsafe - env()", () => {
   beforeEach(() => {
@@ -40,5 +40,55 @@ describe("envsafe - env()", () => {
         DATABASE_URL: string()
       })
     ).toThrow()
+  })
+})
+
+
+describe("envsafe - default()", () => {
+  afterEach(() => {
+    delete process.env.PORT
+  })
+
+  test("applies default value when env var is missing", () => {
+    const config = env({
+      PORT: number().default(4000)
+    })
+
+    expect(config.PORT).toBe(4000)
+  })
+
+  test("uses env value when provided (not default)", () => {
+    process.env.PORT = "3000"
+
+    const config = env({
+      PORT: number().default(4000)
+    })
+
+    expect(config.PORT).toBe(3000)
+  })
+})
+
+
+describe("envsafe - optional()", () => {
+  afterEach(() => {
+    delete process.env.PORT
+  })
+
+  test("returns undefined when optional env var is missing", () => {
+    const config = env({
+      PORT: number().optional()
+    })
+
+    expect(config.PORT).toBeUndefined()
+  })
+
+  test("parses value when optional env var is provided", () => {
+    process.env.PORT = "3000"
+
+    const config = env({
+      PORT: number().optional()
+    })
+
+    expect(config.PORT).toBe(3000)
   })
 })
