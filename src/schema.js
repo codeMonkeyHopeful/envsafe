@@ -1,6 +1,6 @@
 import { withDefault } from "./utils.js"
 
-export function string() {
+export const string = () => {
   const rule = {
     parse(value, key) {
       if (!value) throw new Error(`${key} is required`)
@@ -13,7 +13,7 @@ export function string() {
   return rule
 }
 
-export function number() {
+export const number = () => {
   const rule = {
     parse(value, key) {
       const n = Number(value)

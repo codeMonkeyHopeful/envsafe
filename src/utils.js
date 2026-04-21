@@ -1,4 +1,4 @@
-export function withDefault(rule, defaultValue) {
+export const withDefault = (rule, defaultValue) => {
   return {
     parse(value, key) {
       if (value === undefined || value === "") {
