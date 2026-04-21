@@ -1,12 +1,3 @@
-export function createEnv(schema) {
-  const config = {}
+export { createEnv } from './createEnv.js';
+export { array, boolean, number, object, string } from './rules/index.js';
 
-  for (const key in schema) {
-    const rule = schema[key]
-    const value = process.env[key]
-
-    config[key] = rule.parse(value, key)
-  }
-
-  return config
-}
