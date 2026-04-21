@@ -1,14 +1,20 @@
+import { withDefault } from "./utils.js"
+
 export function string() {
-  return {
+  const rule = {
     parse(value, key) {
       if (!value) throw new Error(`${key} is required`)
       return value
     }
   }
+
+  rule.default = (def) => withDefault(rule, def)
+
+  return rule
 }
 
 export function number() {
-  return {
+  const rule = {
     parse(value, key) {
       const n = Number(value)
       if (!value || Number.isNaN(n)) {
@@ -17,4 +23,8 @@ export function number() {
       return n
     }
   }
+
+  rule.default = (def) => withDefault(rule, def)
+
+  return rule
 }
