@@ -1,4 +1,4 @@
-export const createEnv = (schema) => {
+export const env = (schema) => {
   const config = {}
 
   for (const key of Object.keys(schema)) {
