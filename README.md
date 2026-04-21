@@ -1,5 +1,5 @@
 # envsafe
-// TODO: DOCUMENT THAT DEFAULT SHOULD ALWAYS BE AT THE END OTHERWISE UNEXPECTED BEHAIOR WITH OPTIONAL
+
 Safe environment variable parsing and validation for Node.js.
 
 envsafe helps you define a schema for environment variables and ensures they are validated at startup, preventing runtime crashes caused by missing or invalid configuration.
@@ -17,9 +17,9 @@ npm install envsafe
 ## Usage
 
 ```js
-import { createEnv, string, number, boolean } from "envsafe"
+import { env, string, number, boolean } from "envsafe"
 
-export const config = createEnv({
+export const config = env({
   DATABASE_URL: string(),
   PORT: number().default(3000),
   DEBUG: boolean().default(false)
