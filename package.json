@@ -1,0 +1,28 @@
+{
+  "name": "envsafe",
+  "version": "1.0.0",
+  "description": "Safe environment variable parsing and validation for .env files",
+  "main": "./src/index.js",
+  "type": "module",
+    "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [],
+  "author": "codeMonkeyHopeful",
+  "license": "MIT",
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codeMonkeyHopeful/envsafe"
+  }
+}
