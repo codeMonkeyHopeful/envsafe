@@ -1,3 +1,3 @@
 export { env } from "./env.js"
-export { boolean, number, string } from "./schema.js"
+export { boolean, enum_, number, string } from "./schema.js"
 

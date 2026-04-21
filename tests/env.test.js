@@ -1,5 +1,5 @@
 import { env } from "../src/env.js"
-import { boolean, number, string } from "../src/schema.js"
+import { boolean, enum_, number, string } from "../src/schema.js"
 
 describe("envsafe - env()", () => {
   beforeEach(() => {
@@ -138,5 +138,44 @@ describe("envsafe - boolean()", () => {
         DEBUG: boolean()
       })
     ).toThrow()
+  })
+})
+
+
+describe("envsafe - enum()", () => {
+  afterEach(() => {
+    delete process.env.NODE_ENV
+  })
+
+  test("accepts valid value", () => {
+    process.env.NODE_ENV = "production"
+
+    const config = env({
+      NODE_ENV: enum_(["development", "production", "test"])
+    })
+
+    expect(config.NODE_ENV).toBe("production")
+  })
+
+  test("rejects invalid value", () => {
+    process.env.NODE_ENV = "staging"
+
+    expect(() =>
+      env({
+        NODE_ENV: enum_(["development", "production", "test"])
+      })
+    ).toThrow()
+  })
+
+  test("works with default", () => {
+    delete process.env.NODE_ENV
+
+    const config = env({
+      NODE_ENV: enum_(["development", "production", "test"]).default(
+        "development"
+      )
+    })
+
+    expect(config.NODE_ENV).toBe("development")
   })
 })

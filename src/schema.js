@@ -86,3 +86,41 @@ export const boolean = () => {
 
   return rule
 }
+
+
+// -------------------- ENUM --------------------
+export const enum_ = (allowedValues) => {
+  const rule = {
+    parse(value, key) {
+      if (isEmpty(value)) {
+        throw requiredError(key)
+      }
+
+      const str = String(value).trim()
+
+      if (!allowedValues.includes(str)) {
+        throw invalidError(
+          key,
+          `one of: ${allowedValues.join(", ")}`,
+          value
+        )
+      }
+
+      return str
+    }
+  }
+
+  rule.default = (def) => {
+    if (!allowedValues.includes(def)) {
+      throw new Error(
+        `Invalid default for "${def}". Must be one of: ${allowedValues.join(", ")}`
+      )
+    }
+
+    return withDefault(rule, def)
+  }
+
+  rule.optional = () => withOptional(rule)
+
+  return rule
+}
