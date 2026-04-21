@@ -1,3 +1,3 @@
-export { createEnv } from './createEnv.js';
-export { array, boolean, number, object, string } from './rules/index.js';
+export { createEnv } from "./createEnv.js"
+export { number, string } from "./schema.js"
 
