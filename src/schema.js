@@ -1,11 +1,20 @@
-import { withDefault, withOptional } from "./utils.js"
+import {
+  invalidError,
+  isEmpty,
+  requiredError,
+  withDefault,
+  withOptional
+} from "./utils.js"
+
+// -------------------- STRING --------------------
 
 export const string = () => {
   const rule = {
     parse(value, key) {
-      if (value === undefined || value === "" || String(value).trim() === "") {
-        throw new Error(`${key} is required`)
+      if (isEmpty(value)) {
+        throw requiredError(key)
       }
+
       return value
     }
   }
@@ -16,18 +25,19 @@ export const string = () => {
   return rule
 }
 
-// Number parsing rule
+// -------------------- NUMBER --------------------
+
 export const number = () => {
   const rule = {
     parse(value, key) {
-      if (value === undefined || value === "" || String(value).trim() === "") {
-        throw new Error(`${key} is required`)
+      if (isEmpty(value)) {
+        throw requiredError(key)
       }
 
       const n = Number(String(value).trim())
 
       if (Number.isNaN(n)) {
-        throw new Error(`${key} must be a number`)
+        throw invalidError(key, "number", value)
       }
 
       return n
